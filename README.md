@@ -6,11 +6,10 @@
 
 <p align="center">
   <a href="https://pypi.org/project/multi-agent-generator/"><img src="https://img.shields.io/pypi/v/multi-agent-generator?color=blue&label=PyPI" alt="PyPI version"></a>
-  <a href="https://pypi.org/project/multi-agent-generator/"><img src="https://img.shields.io/pypi/pyversions/multi-agent-generator" alt="Python Version"></a>
-  <a href="https://pypi.org/project/multi-agent-generator/"><img src="https://img.shields.io/pypi/dm/multi-agent-generator?color=green" alt="PyPI Downloads"></a>
+  <a href="https://pepy.tech/projects/multi-agent-generator"><img src="https://static.pepy.tech/personalized-badge/multi-agent-generator?period=total&units=international_system&left_color=black&right_color=green&left_text=downloads" alt="Downloads"></a>
+  <a href="https://github.com/aakriti1318/multi-agent-generator"><img src="https://img.shields.io/github/stars/aakriti1318/multi-agent-generator?style=social" alt="GitHub stars"></a>
   <a href="https://github.com/aakriti1318/multi-agent-generator/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License MIT"></a>
 </p>
-
 <p align="center">
   <a href="https://docs.pydantic.dev/"><img src="https://img.shields.io/badge/Pydantic-v2-E92063.svg" alt="Pydantic v2"></a>
   <a href="https://pre-commit.com/"><img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit" alt="pre-commit"></a>
