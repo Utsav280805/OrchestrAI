@@ -19,7 +19,7 @@ REQUIREMENTS = [
     "langgraph>=0.0.16",
     "python-dotenv>=1.0.0",
     "pydantic>=2.0.0",
-    "agno==1.8.4",
+    "agno==2.3.24",
 ]
 
 setup(
