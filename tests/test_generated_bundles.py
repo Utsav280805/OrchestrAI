@@ -155,6 +155,14 @@ def test_generated_code_defines_a_runner(framework, provider):
     )
 
 
+def test_react_generated_code_targets_current_langchain_agents_api():
+    """React bundles must not import AgentExecutor removed by LangChain 1.x."""
+    code = generate_code(AWKWARD_CONFIG, "react", provider="huggingface")
+    assert "from langchain.agents import create_agent" in code
+    assert "from langchain.agents import AgentExecutor" not in code
+    assert "create_react_agent" not in code
+
+
 @pytest.mark.parametrize("framework,provider", list(_provider_framework_pairs()))
 def test_header_banner_command_is_runnable(framework, provider):
     """

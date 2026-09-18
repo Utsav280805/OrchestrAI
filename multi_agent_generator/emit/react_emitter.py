@@ -5,9 +5,9 @@ ReAct emitters: the classic ``AgentExecutor`` loop, and a tool-calling LCEL loop
 Both are genuine reason/act cycles, and they differ in how the model is asked to choose a
 tool - which is the real distinction between the two, so it is worth having both.
 
-``react`` uses ``create_react_agent`` with the classic scratchpad prompt. It works with any
-text model, including ones that have no structured tool-calling API at all, because the
-choice is parsed out of the model's own text.
+``react`` uses LangChain's current ``create_agent`` graph API. Older releases exposed
+``AgentExecutor`` from ``langchain.agents``; that symbol was removed in LangChain 1.x, so
+emitting it made a freshly installed project fail before the first query.
 
 ``react-lcel`` binds the tools to the model and executes the ``tool_calls`` it returns,
 looping until the model answers. That needs a model with a tool-calling API, so the emitted
@@ -103,7 +103,7 @@ def _tool_class(tool: ToolSpec) -> str:
 
 
 class ReActEmitter(Emitter):
-    """Classic ReAct: ``create_react_agent`` inside an ``AgentExecutor``."""
+    """ReAct via LangChain's current ``create_agent`` graph API."""
 
     key = "react"
     label = "ReAct"
@@ -111,10 +111,7 @@ class ReActEmitter(Emitter):
         "import time",
         "from typing import Any, Dict, List",
     )
-    agent_imports = (
-        "from langchain.agents import AgentExecutor, create_react_agent",
-        "from langchain_core.prompts import ChatPromptTemplate",
-    )
+    agent_imports = ("from langchain.agents import create_agent",)
 
     def tool_fragment(self, tool: ToolSpec) -> Fragment:
         return Fragment(
@@ -157,17 +154,10 @@ class ReActEmitter(Emitter):
             )
             + "\n"
             f"    tools = {self.agent_tools_expression(agent)}\n"
-            "    prompt = ChatPromptTemplate.from_template(PREFACE + SCRATCHPAD)\n"
-            "    agent = create_react_agent(get_llm(), tools, prompt)\n"
-            "    return AgentExecutor(\n"
-            "        agent=agent,\n"
+            "    return create_agent(\n"
+            "        model=get_llm(),\n"
             "        tools=tools,\n"
-            f"        verbose={bool(agent.verbose)},\n"
-            "        handle_parsing_errors=True,\n"
-            "        # A hard ceiling: a model that never emits 'Final Answer' would otherwise\n"
-            "        # loop until the process timeout, which reads as a hang rather than a limit.\n"
-            "        max_iterations=6,\n"
-            "        return_intermediate_steps=True,\n"
+            "        system_prompt=PREFACE,\n"
             "    )\n"
         )
         return Fragment(
@@ -203,7 +193,7 @@ class ReActEmitter(Emitter):
             "    reset_calls()\n"
             "    started = time.monotonic()\n"
             "    executor = build_workflow()\n"
-            "    response = executor.invoke({\"input\": str(query)})\n"
+            "    response = executor.invoke({\"messages\": [{\"role\": \"user\", \"content\": str(query)}]})\n"
             "    duration = round(time.monotonic() - started, 3)\n"
             "\n"
             "    steps: List[Dict[str, Any]] = []\n"
@@ -219,8 +209,11 @@ class ReActEmitter(Emitter):
             "            \"output\": str(observation),\n"
             "        })\n"
             "\n"
+            "    messages = response.get(\"messages\") or []\n"
+            "    final = messages[-1] if messages else None\n"
+            "    output = str(getattr(final, \"content\", None) or (final.get(\"content\") if isinstance(final, dict) else \"\") or response.get(\"output\") or \"\")\n"
             "    return {\n"
-            "        \"output\": str(response.get(\"output\") or \"\"),\n"
+            "        \"output\": output,\n"
             "        \"steps\": steps,\n"
             "        \"tool_calls\": recorded_calls(),\n"
             "        \"duration_s\": duration,\n"

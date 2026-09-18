@@ -71,7 +71,7 @@ def create_react_code(
     provider: str = "openai",
     model: Optional[str] = None,
 ) -> str:
-    """Generate classic ReAct code built on ``AgentExecutor``."""
+    """Generate ReAct code built on LangChain's current ``create_agent`` API."""
     snippet = llm_snippet_for("react", provider, model, config)
     resolved_model = snippet.model
     agent = _primary_agent(config)
@@ -80,8 +80,7 @@ def create_react_code(
 
     imports: List[str] = [
         "from langchain_core.tools import BaseTool",
-        "from langchain_core.prompts import ChatPromptTemplate",
-        "from langchain.agents import AgentExecutor, create_react_agent",
+        "from langchain.agents import create_agent",
         "from typing import Any, Dict, List",
     ]
     for line in snippet.imports:
@@ -97,9 +96,7 @@ def create_react_code(
     role = _escape(agent.get("role", "a helpful assistant"))
     goal = _escape(agent.get("goal", "assist the user"))
 
-    # create_react_agent expects the classic ReAct scratchpad variables. Omitting
-    # {tools}/{tool_names}/{agent_scratchpad} makes AgentExecutor raise at construction,
-    # so the prompt below declares all three.
+    # AgentExecutor and create_react_agent were removed from langchain.agents in LangChain 1.x.
     code += f'''react_prompt = ChatPromptTemplate.from_template(
     """You are {role}. Your goal is {goal}.
 
@@ -121,23 +118,20 @@ Question: {{input}}
 Thought:{{agent_scratchpad}}"""
 )
 
-agent = create_react_agent(llm, tools, react_prompt)
-agent_executor = AgentExecutor(
-    agent=agent,
+agent_executor = create_agent(
+    model=llm,
     tools=tools,
-    verbose=True,
-    handle_parsing_errors=True,
-    max_iterations=5,
+    system_prompt="You are {role}. Your goal is {goal}.",
 )
 
 
 def run_agent(query: str) -> str:
     """Run the ReAct agent on a query."""
-    response = agent_executor.invoke({{"input": query}})
+    response = agent_executor.invoke({{"messages": [{{"role": "user", "content": query}}]}})
     if isinstance(response, dict):
-        for step in response.get("intermediate_steps", []) or []:
-            print(step)
-        return response.get("output", "No response generated")
+        messages = response.get("messages") or []
+        final = messages[-1] if messages else None
+        return str(getattr(final, "content", None) or (final.get("content") if isinstance(final, dict) else "") or response.get("output", "No response generated"))
     return str(response)
 
 

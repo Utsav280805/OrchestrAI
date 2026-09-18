@@ -115,7 +115,7 @@ FRAMEWORK_REQUIREMENTS: Dict[str, Tuple[Requirement, ...]] = {
         Requirement("langchain-core>=0.3.0", "langchain_core", "Messages and tools"),
     ),
     "react": (
-        Requirement("langchain>=0.3.0", "langchain", "AgentExecutor and create_react_agent"),
+        Requirement("langchain>=1.0.0", "langchain", "Current create_agent ReAct runtime"),
         Requirement("langchain-core>=0.3.0", "langchain_core", "Prompts and tools"),
     ),
     "react-lcel": (
