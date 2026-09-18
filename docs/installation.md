@@ -9,8 +9,8 @@ pip install multi-agent-generator
 ## Development Installation
 
 ```bash
-git clone https://github.com/Utsav280805/Prompt2Agent.git
-cd Prompt2Agent
+git clone https://github.com/Utsav280805/OrchestrAI.git
+cd OrchestrAI
 pip install -e ".[dev]"
 ```
 

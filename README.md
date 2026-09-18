@@ -1,19 +1,19 @@
 # Multi-Agent Generator
 
 <p align="center">
-  <img alt="mag-banner" src="https://raw.githubusercontent.com/Utsav280805/Prompt2Agent/main/mag-banner.png" />
+  <img alt="mag-banner" src="https://raw.githubusercontent.com/Utsav280805/OrchestrAI/main/mag-banner.png" />
 </p>
 
 <p align="center">
   <a href="https://pypi.org/project/multi-agent-generator/"><img src="https://img.shields.io/pypi/v/multi-agent-generator?color=blue&label=PyPI" alt="PyPI version"></a>
   <a href="https://pepy.tech/projects/multi-agent-generator"><img src="https://static.pepy.tech/personalized-badge/multi-agent-generator?period=total&units=international_system&left_color=black&right_color=green&left_text=downloads" alt="Downloads"></a>
-  <a href="https://github.com/Utsav280805/Prompt2Agent"><img src="https://img.shields.io/github/stars/Utsav280805/Prompt2Agent?style=social" alt="GitHub stars"></a>
-  <a href="https://github.com/Utsav280805/Prompt2Agent/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License MIT"></a>
+  <a href="https://github.com/Utsav280805/OrchestrAI"><img src="https://img.shields.io/github/stars/Utsav280805/OrchestrAI?style=social" alt="GitHub stars"></a>
+  <a href="https://github.com/Utsav280805/OrchestrAI/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License MIT"></a>
 </p>
 <p align="center">
   <a href="https://docs.pydantic.dev/"><img src="https://img.shields.io/badge/Pydantic-v2-E92063.svg" alt="Pydantic v2"></a>
   <a href="https://pre-commit.com/"><img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit" alt="pre-commit"></a>
-  <a href="https://Utsav280805.github.io/Prompt2Agent/"><img src="https://img.shields.io/badge/docs-mkdocs-blue" alt="Docs"></a>
+  <a href="https://Utsav280805.github.io/OrchestrAI/"><img src="https://img.shields.io/badge/docs-mkdocs-blue" alt="Docs"></a>
 </p>
 
 Describe a task in plain English and get a **working multi-agent project**: analysed, designed,

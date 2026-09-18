@@ -142,8 +142,8 @@ open-source = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/Utsav280805/Prompt2Agent"
-"Bug Tracker" = "https://github.com/Utsav280805/Prompt2Agent/issues"
+"Homepage" = "https://github.com/Utsav280805/OrchestrAI"
+"Bug Tracker" = "https://github.com/Utsav280805/OrchestrAI/issues"
 
 [project.scripts]
 multi-agent-generator = "multi_agent_generator.__main__:main"
