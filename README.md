@@ -724,7 +724,4 @@ print(requirements_txt("crewai", "huggingface"))
 ## License
 
 MIT
-
-Maintainers: **[Nabarko Roy](https://github.com/Nabarko)**
-
 Made with love. If you like star the repo and share it with AI Enthusiasts.
