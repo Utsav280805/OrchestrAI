@@ -1,4 +1,4 @@
-# Multi-Agent Generator
+# OrchestrAI
 
 <p align="center">
   <img alt="mag-banner" src="https://raw.githubusercontent.com/Utsav280805/OrchestrAI/main/mag-banner.png" />
